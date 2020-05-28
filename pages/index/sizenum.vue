@@ -54,13 +54,14 @@
 				
 					<view class="grid text-center " v-if="isimg" v-for="(it, index) in allarray4s5r" :key="index" >
 						<view
+							v-for="(item, index1) in it"
+							:key="index1"
 							class=""
 							style="display: flex;align-items: center;justify-content: center;    border-left:1px solid #ffffff; border-bottom: 1px solid #ffffff; text-align: center; background-color:#cccccc;"
-							:style="
-								'width:' + item.width + 'px; height:' + item.height + 'px; '
-							"
-							v-for="(item, ind) in it"
-							:key="ind">
+							:style="'width:' + item.pwidth + 'px; height:' +item.pheight + 'px; '
+							">
+							
+							<view style="position: absolute;z-index: 100; " v-if="item.showname==true">{{item.name}}</view>
 							<img style="width: 100%; height:100%" :src="item.img" v-if="item.img!=''"/>
 							<view v-if="item.heightisliubai==true && item.widthisliubai==false && index==0 ">{{item.name}}</view>
 							<view v-if="item.heightisliubai==true && item.widthisliubai==false && index==item.row-1 ">{{item.name}}</view>
@@ -73,13 +74,15 @@
 					
 					<view class="grid text-center " v-if="isimg==false"   v-for="(it, index) in allarray4s5r" :key="index" >
 						<view
+							v-for="(item, index1) in it"
+							:key="index1"
 							class=" text-white"
 							style="display: flex;align-items: center;justify-content: center;   border-left:1px solid #ffffff; border-bottom: 1px solid #ffffff; text-align: center; background-color:#cccccc;"
 							:style="
-								'width:' + item.width + 'px; height:' + item.height + 'px; background-color:' + item.bgcolor
+								'width:' + item.pwidth + 'px; height:' + item.pheight + 'px; background-color:' + item.bgcolor
 							"
-							v-for="(item, ind) in it"
-							:key="ind">
+							
+							>
 							{{ item.name }}
 							</view>
 					</view>
@@ -138,7 +141,7 @@
 							class=""
 							style="display: flex;align-items: center;justify-content: center;    border-left:1px solid #ffffff; border-bottom: 1px solid #ffffff; text-align: center; background-color:#cccccc;"
 							:style="
-								'width:' + item.width + 'px; height:' + item.height + 'px; '
+								'width:' + item.pwidth + 'px; height:' + item.pheight + 'px; '
 							"
 							v-for="(item, ind) in it"
 							:key="ind">
@@ -157,7 +160,7 @@
 							class=" text-white"
 							style="display: flex;align-items: center;justify-content: center;   border-left:1px solid #ffffff; border-bottom: 1px solid #ffffff; text-align: center; background-color:#cccccc;"
 							:style="
-								'width:' + item.width + 'px; height:' + item.height + 'px; background-color:' + item.bgcolor
+								'width:' + item.pwidth + 'px; height:' + item.pheight + 'px; background-color:' + item.bgcolor
 							"
 							v-for="(item, ind) in it"
 							:key="ind">
@@ -292,6 +295,9 @@
 				this.TabCur = e.currentTarget.dataset.id;
 				this.scrollLeft = (e.currentTarget.dataset.id - 1) * 60
 			},
+			tapcon(obj){
+				console.log(obj);
+			},
 			PickerChange(e) {
 				console.log(e);
 				this.index = e.detail.value
@@ -330,10 +336,7 @@
 			getfirst4s5r() {
 				//四舍五入方案 计算第一块板的大小
 				
-				if(this.curwidth<this.curmin || this.curheight<this.curmin){
-					this.isshow=false;
-					return false;
-				}
+				
 				
 				var wnum = Math.round(this.curwidth / this.sinwidthmodel);
 				var modnum = this.curwidth % this.sinwidthmodel;
@@ -436,7 +439,7 @@
 					var widthisliubai=false;
 					var heightisliubai=false;
 					if(modnum!=0){
-						firstwidth=(this.curwidth-this.sinwidthmodel*wnum)/2;
+						firstwidth=Math.round((this.curwidth-this.sinwidthmodel*wnum)/2);
 						widthisliubai=true;
 						wnum=wnum+2;
 					}else{//宽度刚刚好！
@@ -448,7 +451,7 @@
 					var firstheight;
 					
 					if(modnum!=0){
-							firstheight=(this.curheight-this.sinwidthmodel*hnum)/2;
+							firstheight=Math.round((this.curheight-this.sinwidthmodel*hnum)/2);
 							heightisliubai=true;
 							hnum=hnum+2;
 					}else{//宽度刚刚好！
@@ -478,8 +481,6 @@
 					this.configdata450liubaiban.jiaohua=4;
 					
 						this.configdata450liubaiban.changliang=thnum*this.sinwidthmodel/100;
-					
-					
 					
 						this.configdata450liubaiban.lianghuang=twnum*this.sinwidthmodel/100;
 					
@@ -522,7 +523,7 @@
 					//行
 					var temparray4s5r = [];
 					for (var i = 1; i <= cols; i++) {
-						var j = [];
+						var j = new Object();
 						j.heightisliubai=heightisliubai;
 						j.widthisliubai=widthisliubai;
 						j.cols=cols;
@@ -563,20 +564,22 @@
 									j.bgcolor = '#bbbbbb';
 								}
 			
-								j.width = this.getbilipx(firstwidth, this.curwidth);
-								j.height = this.getbilipx(firstheight, this.curwidth);
+								j.pwidth = this.getbilipx(firstwidth, this.curwidth);
+								j.pheight = this.getbilipx(firstheight, this.curwidth);
 								j.name = firstheight;
 							} else {
-								j.width = this.getbilipx(firstwidth, this.curwidth);
-								j.height = this.getbilipx(this.sinwidthmodel, this.curwidth);
+								j.pwidth = this.getbilipx(firstwidth, this.curwidth);
+								j.pheight = this.getbilipx(this.sinwidthmodel, this.curwidth);
 								j.name = firstwidth;
 								
 								if (widthisliubai == false && heightisliubai == true) {
 									if(p!=2 && p!=row-1){
 										if(i==1){
 											j.img = this.left_img;
+											j.showname=true;
 										}else if(i==cols){
 											j.img = this.right_img;
+											j.showname=true;
 										}
 									}
 								}else if (widthisliubai == true && heightisliubai == false){
@@ -593,8 +596,10 @@
 								else{
 									if(i==1){
 										j.img = this.left_img;
+										j.showname=true;
 									}else if(i==cols){
 										j.img = this.right_img;
+										j.showname=true;
 									}
 								}
 								
@@ -605,8 +610,8 @@
 							//其它列其它行
 							if (p == 1 || p == row) {
 								//第一行最后一行
-								j.width = this.getbilipx(this.sinwidthmodel, this.curwidth);
-								j.height = this.getbilipx(firstheight, this.curwidth);
+								j.pwidth = this.getbilipx(this.sinwidthmodel, this.curwidth);
+								j.pheight = this.getbilipx(firstheight, this.curwidth);
 								j.name = firstheight;
 								
 								
@@ -620,8 +625,10 @@
 								}else{
 									if(p==1){
 										j.img = this.top_img;
+										j.showname=true;
 									}else if(p==row){
 										j.img = this.bottom_img;
+										j.showname=true;
 									}
 								}
 								
@@ -665,14 +672,18 @@
 										
 										if(p==2){
 											j.img = this.top_img;
+											j.showname=true;
 										}else if(p==row-1){
 											j.img = this.bottom_img;
+											j.showname=true;
 										}
 										
 										if(i==2){
 											j.img = this.left_img;
+											j.showname=true;
 										}else if(i==cols-1){
 											j.img = this.right_img;
+											j.showname=true;
 										}
 										
 										j.bgcolor = '#d1a741';
@@ -684,15 +695,19 @@
 										j.img = this.center_img;
 										if(p==2){
 											j.img = this.top_img;
+											j.showname=true;
 										}else if(p==row-1){
 											j.img = this.bottom_img;
+											j.showname=true;
 										}
 									}else if (widthisliubai && heightisliubai == false){
 										j.img = this.center_img;
 										if(i==2){
 											j.img = this.left_img;
+											j.showname=true;
 										}else if(i==cols-1){
 											j.img = this.right_img;
+											j.showname=true;
 										}
 									}else{
 										j.img = this.center_img;	
@@ -702,8 +717,8 @@
 									
 								}
 			
-								j.width = this.getbilipx(this.sinwidthmodel, this.curwidth);
-								j.height = this.getbilipx(this.sinwidthmodel, this.curwidth);
+								j.pwidth = this.getbilipx(this.sinwidthmodel, this.curwidth);
+								j.pheight = this.getbilipx(this.sinwidthmodel, this.curwidth);
 								j.name = this.sinwidthmodel;
 							}
 			
@@ -718,10 +733,17 @@
 			},
 			
 			gets() {
+				
+				if(this.curwidth<this.curmin || this.curheight<this.curmin){
+					this.isshow=false;
+					return false;
+				}
 				try {
+					
 					const res = uni.getSystemInfoSync();
 					this.windowWidth = res.windowWidth;
 					this.allarray4s5r=this.getarray(this.getfirst4s5r());
+					console.log(this.allarray4s5r)
 					this.allarrayliubaiban=this.getarray(this.getfirstlibaiban());
 				} catch (e) {
 				}
