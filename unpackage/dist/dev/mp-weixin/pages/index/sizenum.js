@@ -371,7 +371,7 @@ var _default =
       FATabCur: "sswrtab",
       avatar: ['https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg', 'https://ossweb-img.qq.com/images/lol/web201310/skin/big81005.jpg', 'https://ossweb-img.qq.com/images/lol/web201310/skin/big25002.jpg', 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg'],
       picker: ['300', '450'],
-      tabNav: ['算板', '算平面板'],
+      tabNav: ['算拼花板', '算平面板'],
       isimg: true,
       windowWidth: 400,
       sinwidthmodel: 45,
@@ -463,8 +463,6 @@ var _default =
     getfirst4s5r: function getfirst4s5r() {
       //四舍五入方案 计算第一块板的大小
 
-
-
       var wnum = Math.round(this.curwidth / this.sinwidthmodel);
       var modnum = this.curwidth % this.sinwidthmodel;
       var firstwidth = 0;
@@ -496,7 +494,7 @@ var _default =
         if (modnum > this.sinwidthmodel / 2) {
           //裁板方案
           heightcaiban = true;
-          firstheight = Math.round(this.sinwidthmodel - (this.sinwidthmodel * hnum - this.curheight) / 2);
+          firstheight = Math.round(this.sinwidthmodel - (this.sinwidthmodel * hnum - this.curheight)) / 2;
         } else {
           //留白方案
           firstheight = (this.curheight - this.sinwidthmodel * hnum) / 2;
@@ -515,11 +513,17 @@ var _default =
       var twbianc;
       if (heightisliubai == true) {
         thnum = hnum - 2 - 2;
+        this.configdata450.jiabancd = firstheight / 100;
+
+        this.configdata450.jiabanshuliang = Math.ceil(firstheight * hnum * 2 / 100 * 2);
+
       } else {
         thnum = hnum - 2;
       }
       if (widthisliubai == true) {
         twnum = wnum - 2 - 2;
+        this.configdata450.jiabankd = firstwidth / 100;
+        this.configdata450.jiabanshuliang = this.configdata450.jiabanshuliang + Math.ceil(firstwidth * wnum * 2 / 100) * 2;
       } else {
         twnum = wnum - 2;
       }
@@ -592,16 +596,34 @@ var _default =
       var twnum;
       var thbianc;
       var twbianc;
+
       if (heightisliubai == true) {
         thnum = hnum - 2 - 2;
+        this.configdata450liubaiban.jiabancd = firstheight / 100;
+        this.configdata450liubaiban.jiabanshuliang = Math.ceil(firstheight * hnum * 2 / 100) * 2;
+        console.log(this.configdata450liubaiban.jiabanshuliang);
       } else {
         thnum = hnum - 2;
       }
       if (widthisliubai == true) {
         twnum = wnum - 2 - 2;
+        this.configdata450liubaiban.jiabankd = firstwidth / 100;
+        this.configdata450liubaiban.jiabanshuliang = this.configdata450liubaiban.jiabanshuliang + Math.ceil(firstwidth * wnum * 2 / 100) * 2;
+        console.log(this.configdata450liubaiban.jiabanshuliang);
       } else {
         twnum = wnum - 2;
       }
+
+      // if(heightisliubai==true){
+      // 	 thnum=hnum-2-2;
+      // }else{
+      // 	thnum=hnum-2;
+      // }
+      // if(widthisliubai==true){
+      // 	 twnum=wnum-2-2;
+      // }else{
+      // 	twnum=wnum-2;
+      // }
 
       this.configdata450liubaiban.zhonghua = thnum * twnum - this.dengNo;
       this.configdata450liubaiban.bianhua = (thnum + twnum) * 2;
