@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<cu-custom bgImage="https://image.weilanwl.com/color2.0/plugin/wdh2236.jpg" :isBack="true"><block slot="backText">返回</block>
-			<block slot="content">爱摩戈算板神器</block>
+			<block slot="content">艾摩戈算板神器</block>
 		</cu-custom>
 		<scroll-view scroll-x class="bg-white nav text-center " :style="[{top:CustomBar + 'px'}]">
 			<view class="cu-item" :class="index==TabCur?'text-blue cur':''" v-for="(item,index) in tabNav" :key="index" @tap="tabSelect"
@@ -62,7 +62,7 @@
 							">
 							
 							<view style="position: absolute;z-index: 100; " v-if="item.showname==true">{{item.name}}</view>
-							<img style="width: 100%; height:100%" :src="item.img" v-if="item.img!=''"/>
+							<img style="width: 100%; height:100%;" :class="item.sclass" :src="item.img" v-if="item.img!=''"/>
 							<view v-if="item.heightisliubai==true && item.widthisliubai==false && index==0 ">{{item.name}}</view>
 							<view v-if="item.heightisliubai==true && item.widthisliubai==false && index==item.row-1 ">{{item.name}}</view>
 							<view v-if="item.heightisliubai==true && item.widthisliubai==true && index==0 && ind!=item.cols-1">{{item.name}}</view>
@@ -145,7 +145,7 @@
 							"
 							v-for="(item, ind) in it"
 							:key="ind">
-							<img style="width: 100%; height:100%" :src="item.img" v-if="item.img!=''"/>
+							<img style="width: 100%; height:100%;" :class="item.sclass" :src="item.img" v-if="item.img!=''"/>
 							<view v-if="item.heightisliubai==true && item.widthisliubai==false && index==0 ">{{item.name}}</view>
 							<view v-if="item.heightisliubai==true && item.widthisliubai==false && index==item.row-1 ">{{item.name}}</view>
 							<view v-if="item.heightisliubai==true && item.widthisliubai==true && index==0 && ind!=item.cols-1">{{item.name}}</view>
@@ -155,7 +155,7 @@
 						</view>
 					</view>
 					
-					<view class="grid text-center " v-if="isimg==false"   v-for="(it, index) in allarray4s5r" :key="index" >
+					<view class="grid text-center " v-if="isimg==false"   v-for="(it, index) in allarrayliubaiban" :key="index" >
 						<view
 							class=" text-white"
 							style="display: flex;align-items: center;justify-content: center;   border-left:1px solid #ffffff; border-bottom: 1px solid #ffffff; text-align: center; background-color:#cccccc;"
@@ -254,14 +254,9 @@
 				firstheight: 0,
 				allarray4s5r: [],
 				allarrayliubaiban:[],
-				bottom_img:"/static/demo/bottom.jpg",
-				bottomright_img:"/static/demo/bottomright.jpg",
 				center_img:"/static/demo/center.jpg",
 				left_img:"/static/demo/left.jpg",
-				leftbottom_img:"/static/demo/leftbottom.jpg",
 				lefttop_img:"/static/demo/lefttop.jpg",
-				right_img:"/static/demo/right.jpg",
-				righttop_img:"/static/demo/righttop.jpg",
 				top_img:"/static/demo/top.jpg",
 				configdata450: {
 					zhonghua:0,
@@ -536,12 +531,16 @@
 								if ((p == 2 && i == 1) || (p == row - 1 && i == cols) || (p == 2 && i == cols) || (p == row - 1 && i == 1)) {
 									if (p == 2 && i == 1) {
 										j.img = this.lefttop_img;
+										j.sclass="";
 									} else if (p == row - 1 && i == cols) {
-										j.img = this.bottomright_img;
+										j.img = this.lefttop_img;
+										j.sclass="tr180";
 									} else if (p == 2 && i == cols) {
-										j.img = this.righttop_img;
+										j.img = this.lefttop_img;
+										j.sclass="mle";
 									} else if (p == row - 1 && i == 1) {
-										j.img = this.leftbottom_img;
+										j.img = this.lefttop_img;
+										j.sclass="mve";
 									}
 									j.bgcolor = '#675ac6';
 								}
@@ -553,12 +552,16 @@
 									j.bgcolor = '#675ac6';
 									if (p == 1 && i == 1) {
 										j.img = this.lefttop_img;
+										j.sclass="";
 									} else if (p == 1 && i == cols) {
-										j.img = this.righttop_img;
+										j.img = this.lefttop_img;
+										j.sclass="mle";
 									} else if (p == row && i == 1) {
-										j.img = this.leftbottom_img;
+										j.img = this.lefttop_img;
+										j.sclass="mve";
 									} else if (p == row && i == cols) {
-										j.img = this.bottomright_img;
+										j.img = this.lefttop_img;
+										j.sclass="tr180";
 									}
 								} else {
 									j.bgcolor = '#bbbbbb';
@@ -576,9 +579,11 @@
 									if(p!=2 && p!=row-1){
 										if(i==1){
 											j.img = this.left_img;
+											
 											j.showname=true;
 										}else if(i==cols){
-											j.img = this.right_img;
+											j.img = this.left_img;
+											j.sclass="mle";
 											j.showname=true;
 										}
 									}
@@ -598,7 +603,8 @@
 										j.img = this.left_img;
 										j.showname=true;
 									}else if(i==cols){
-										j.img = this.right_img;
+										j.img = this.left_img;
+										j.sclass="mle";
 										j.showname=true;
 									}
 								}
@@ -627,7 +633,8 @@
 										j.img = this.top_img;
 										j.showname=true;
 									}else if(p==row){
-										j.img = this.bottom_img;
+										j.img = this.top_img;
+										j.sclass="mve";
 										j.showname=true;
 									}
 								}
@@ -641,12 +648,16 @@
 										
 										if (p == 1 && i == 2) {
 											j.img = this.lefttop_img;
+											j.sclass="";
 										} else if (p == row && i == cols - 1) {
-											j.img = this.bottomright_img;
+											j.img = this.lefttop_img;
+											j.sclass="tr180";
 										} else if (p == 1 && i == cols - 1){
-											j.img = this.righttop_img;
+											j.img = this.lefttop_img;
+											j.sclass="mle";
 										} else if (p == row && i == 2) {
-											j.img = this.leftbottom_img;
+											j.img = this.lefttop_img;
+											j.sclass="mve";
 										}
 										
 										j.bgcolor = '#675acd';
@@ -660,12 +671,16 @@
 										
 										if (p == 2 && i == 2) {
 											j.img = this.lefttop_img;
+											j.sclass="";
 										} else if (p == row - 1 && i == cols - 1) {
-											j.img = this.bottomright_img;
+											j.img = this.lefttop_img;
+											j.sclass="tr180";
 										} else if (p == 2 && i == cols - 1){
-											j.img = this.righttop_img;
+											j.img = this.lefttop_img;
+											j.sclass="mle";
 										} else if (p == row - 1 && i == 2) {
-											j.img = this.leftbottom_img;
+											j.img = this.lefttop_img;
+											j.sclass="mve";
 										}
 										j.bgcolor = '#675ac6';
 									} else {
@@ -674,7 +689,8 @@
 											j.img = this.top_img;
 											j.showname=true;
 										}else if(p==row-1){
-											j.img = this.bottom_img;
+											j.img = this.top_img;
+											j.sclass="mve";
 											j.showname=true;
 										}
 										
@@ -682,7 +698,8 @@
 											j.img = this.left_img;
 											j.showname=true;
 										}else if(i==cols-1){
-											j.img = this.right_img;
+											j.img = this.left_img;
+											j.sclass="mle";
 											j.showname=true;
 										}
 										
@@ -697,7 +714,8 @@
 											j.img = this.top_img;
 											j.showname=true;
 										}else if(p==row-1){
-											j.img = this.bottom_img;
+											j.img = this.top_img;
+											j.sclass="mve";
 											j.showname=true;
 										}
 									}else if (widthisliubai && heightisliubai == false){
@@ -706,7 +724,8 @@
 											j.img = this.left_img;
 											j.showname=true;
 										}else if(i==cols-1){
-											j.img = this.right_img;
+											j.img = this.left_img;
+											j.sclass="mle";
 											j.showname=true;
 										}
 									}else{
@@ -770,5 +789,32 @@
 <style>
 	.page {
 		height: 100vh;
+	}
+	.tr270{
+		transform: rotate(270deg);
+	}
+	.tr180{
+		transform: rotate(180deg);
+	}
+	.tr90{
+		transform: rotate(90deg);
+	}
+
+	.mle {          /* 水平镜像翻转 */
+	            -moz-transform:scaleX(-1);
+	            -webkit-transform:scaleX(-1);
+	            -o-transform:scaleX(-1);
+	            transform:scaleX(-1);
+	            /*兼容IE*/
+	            filter:FlipH;
+	        }
+	.mve {        /* 垂直镜像翻转 */
+		-moz-transform:scaleY(-1);
+		-webkit-transform:scaleY(-1);
+		-o-transform:scaleY(-1);
+		transform:scaleY(-1);
+		/*兼容IE*/
+		filter:FlipV;
+
 	}
 </style>

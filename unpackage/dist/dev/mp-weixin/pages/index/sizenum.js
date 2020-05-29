@@ -386,14 +386,9 @@ var _default =
       firstheight: 0,
       allarray4s5r: [],
       allarrayliubaiban: [],
-      bottom_img: "/static/demo/bottom.jpg",
-      bottomright_img: "/static/demo/bottomright.jpg",
       center_img: "/static/demo/center.jpg",
       left_img: "/static/demo/left.jpg",
-      leftbottom_img: "/static/demo/leftbottom.jpg",
       lefttop_img: "/static/demo/lefttop.jpg",
-      right_img: "/static/demo/right.jpg",
-      righttop_img: "/static/demo/righttop.jpg",
       top_img: "/static/demo/top.jpg",
       configdata450: {
         zhonghua: 0,
@@ -668,12 +663,16 @@ var _default =
               if (p == 2 && i == 1 || p == row - 1 && i == cols || p == 2 && i == cols || p == row - 1 && i == 1) {
                 if (p == 2 && i == 1) {
                   j.img = this.lefttop_img;
+                  j.sclass = "";
                 } else if (p == row - 1 && i == cols) {
-                  j.img = this.bottomright_img;
+                  j.img = this.lefttop_img;
+                  j.sclass = "tr180";
                 } else if (p == 2 && i == cols) {
-                  j.img = this.righttop_img;
+                  j.img = this.lefttop_img;
+                  j.sclass = "mle";
                 } else if (p == row - 1 && i == 1) {
-                  j.img = this.leftbottom_img;
+                  j.img = this.lefttop_img;
+                  j.sclass = "mve";
                 }
                 j.bgcolor = '#675ac6';
               }
@@ -685,12 +684,16 @@ var _default =
                 j.bgcolor = '#675ac6';
                 if (p == 1 && i == 1) {
                   j.img = this.lefttop_img;
+                  j.sclass = "";
                 } else if (p == 1 && i == cols) {
-                  j.img = this.righttop_img;
+                  j.img = this.lefttop_img;
+                  j.sclass = "mle";
                 } else if (p == row && i == 1) {
-                  j.img = this.leftbottom_img;
+                  j.img = this.lefttop_img;
+                  j.sclass = "mve";
                 } else if (p == row && i == cols) {
-                  j.img = this.bottomright_img;
+                  j.img = this.lefttop_img;
+                  j.sclass = "tr180";
                 }
               } else {
                 j.bgcolor = '#bbbbbb';
@@ -708,9 +711,11 @@ var _default =
                 if (p != 2 && p != row - 1) {
                   if (i == 1) {
                     j.img = this.left_img;
+
                     j.showname = true;
                   } else if (i == cols) {
-                    j.img = this.right_img;
+                    j.img = this.left_img;
+                    j.sclass = "mle";
                     j.showname = true;
                   }
                 }
@@ -730,7 +735,8 @@ var _default =
                   j.img = this.left_img;
                   j.showname = true;
                 } else if (i == cols) {
-                  j.img = this.right_img;
+                  j.img = this.left_img;
+                  j.sclass = "mle";
                   j.showname = true;
                 }
               }
@@ -759,7 +765,8 @@ var _default =
                   j.img = this.top_img;
                   j.showname = true;
                 } else if (p == row) {
-                  j.img = this.bottom_img;
+                  j.img = this.top_img;
+                  j.sclass = "mve";
                   j.showname = true;
                 }
               }
@@ -773,12 +780,16 @@ var _default =
 
                   if (p == 1 && i == 2) {
                     j.img = this.lefttop_img;
+                    j.sclass = "";
                   } else if (p == row && i == cols - 1) {
-                    j.img = this.bottomright_img;
+                    j.img = this.lefttop_img;
+                    j.sclass = "tr180";
                   } else if (p == 1 && i == cols - 1) {
-                    j.img = this.righttop_img;
+                    j.img = this.lefttop_img;
+                    j.sclass = "mle";
                   } else if (p == row && i == 2) {
-                    j.img = this.leftbottom_img;
+                    j.img = this.lefttop_img;
+                    j.sclass = "mve";
                   }
 
                   j.bgcolor = '#675acd';
@@ -792,12 +803,16 @@ var _default =
 
                   if (p == 2 && i == 2) {
                     j.img = this.lefttop_img;
+                    j.sclass = "";
                   } else if (p == row - 1 && i == cols - 1) {
-                    j.img = this.bottomright_img;
+                    j.img = this.lefttop_img;
+                    j.sclass = "tr180";
                   } else if (p == 2 && i == cols - 1) {
-                    j.img = this.righttop_img;
+                    j.img = this.lefttop_img;
+                    j.sclass = "mle";
                   } else if (p == row - 1 && i == 2) {
-                    j.img = this.leftbottom_img;
+                    j.img = this.lefttop_img;
+                    j.sclass = "mve";
                   }
                   j.bgcolor = '#675ac6';
                 } else {
@@ -806,7 +821,8 @@ var _default =
                     j.img = this.top_img;
                     j.showname = true;
                   } else if (p == row - 1) {
-                    j.img = this.bottom_img;
+                    j.img = this.top_img;
+                    j.sclass = "mve";
                     j.showname = true;
                   }
 
@@ -814,7 +830,8 @@ var _default =
                     j.img = this.left_img;
                     j.showname = true;
                   } else if (i == cols - 1) {
-                    j.img = this.right_img;
+                    j.img = this.left_img;
+                    j.sclass = "mle";
                     j.showname = true;
                   }
 
@@ -829,7 +846,8 @@ var _default =
                     j.img = this.top_img;
                     j.showname = true;
                   } else if (p == row - 1) {
-                    j.img = this.bottom_img;
+                    j.img = this.top_img;
+                    j.sclass = "mve";
                     j.showname = true;
                   }
                 } else if (widthisliubai && heightisliubai == false) {
@@ -838,7 +856,8 @@ var _default =
                     j.img = this.left_img;
                     j.showname = true;
                   } else if (i == cols - 1) {
-                    j.img = this.right_img;
+                    j.img = this.left_img;
+                    j.sclass = "mle";
                     j.showname = true;
                   }
                 } else {
