@@ -37,7 +37,7 @@
 						</view>
 					</picker>
 				</view>
-				<view class="cu-form-group">
+				<view class="cu-form-group"  @tap="navproductimg()">
 					<view class="title">选板</view>
 					<text class='cuIcon-right text-orange'></text>
 				</view>
@@ -289,6 +289,23 @@
 			tabSelect(e) {
 				this.TabCur = e.currentTarget.dataset.id;
 				this.scrollLeft = (e.currentTarget.dataset.id - 1) * 60
+			},
+			
+			
+			sysFun(object){
+				console.log(object);
+					this.center_img=this.apiServer+object.centerimg;
+					this.left_img=this.apiServer+object.leftimg;
+					this.top_img=this.apiServer+object.topimg;
+					this.lefttop_img=this.apiServer+object.topleftimg;
+					this.allarray4s5r=[];
+					this.gets();
+			},
+			
+			navproductimg(){
+				uni.navigateTo({
+				    url: 'productimg?mid='+this.picker[this.index],
+				});
 			},
 			tapcon(obj){
 				console.log(obj);

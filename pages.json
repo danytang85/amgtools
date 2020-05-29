@@ -13,6 +13,9 @@
 		{
 			"path": "pages/index/sizenum"
 			
+		},{
+			"path": "pages/index/productimg"
+			
 		},
 		{
 			"path": "pages/plugin/sinum"

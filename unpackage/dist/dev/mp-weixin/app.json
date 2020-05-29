@@ -3,6 +3,7 @@
     "pages/index/index",
     "pages/index/libs",
     "pages/index/sizenum",
+    "pages/index/productimg",
     "pages/plugin/sinum",
     "pages/plugin/sinumliubai"
   ],
@@ -17,6 +18,5 @@
   "usingComponents": {
     "cu-tools": "/pages/plugin/home",
     "cu-custom": "/colorui/components/cu-custom"
-  },
-  "sitemapLocation": "sitemap28.json"
+  }
 }
